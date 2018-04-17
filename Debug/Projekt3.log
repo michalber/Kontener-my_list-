@@ -1,0 +1,8 @@
+﻿  Źródło.cpp
+m:\po_18'\projekt3\projekt3\źródło.cpp(36): warning C4244: "argument": konwersja z "time_t" do "unsigned int", możliwa utrata danych
+m:\po_18'\projekt3\projekt3\źródło.cpp(46): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+m:\po_18'\projekt3\projekt3\źródło.cpp(99): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+m:\po_18'\projekt3\projekt3\źródło.cpp(106): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+m:\po_18'\projekt3\projekt3\źródło.cpp(238): warning C4244: "argument": konwersja z "time_t" do "unsigned int", możliwa utrata danych
+  Projekt3.vcxproj -> M:\PO_18'\Projekt3\Debug\Projekt3.exe
+  Projekt3.vcxproj -> M:\PO_18'\Projekt3\Debug\Projekt3.pdb (Partial PDB)

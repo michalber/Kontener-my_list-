@@ -1,64 +1,18 @@
 #pragma once
 
+template<class T> class Node;
+template<class T> class Iterator;
 
 template<class T>
 class my_list
 {
-	class Iterator;
-
-	class Node
-	{
-		T value;
-		Node * next;
-		Node * prev;
-
-		Node(const T & val, Node * next = 0, Node * prev = 0) : value(val), next(next), prev(prev)
-		{ }
-
-		friend class my_list<T>;
-		friend class Iterator;
-	};
-
-	class Iterator
-	{
-		Node * p_current;
-
-		Iterator(Node * position) : p_current(position)
-		{ }
-
-		friend class my_list<T>;
-
-	public:
-
-		
-		Iterator() : p_current(0)
-		{ }
-
-
-		T & operator*() { return p_current->value; }
-		T * operator->() { return &(p_current->value); }
-
-		Iterator & operator++() {
-			p_current = p_current->next;
-			return *this;
-		}
-
-		Iterator operator++(int) {
-			Iterator temp = *this;
-			p_current = p_current->next;
-			return temp;
-		}
-
-		bool operator==(const Iterator rhs) { return p_current == rhs.p_current; }
-		bool operator!=(const Iterator rhs) { return p_current != rhs.p_current; }
-	};
 
 public:
-	typedef Iterator iterator;
+	typedef Iterator<T> iterator;
 	typedef T value_type;
-	
+
 private:
-	Node * head;
+	Node<T> * head;
 	int size = 0;
 
 public:
@@ -78,7 +32,7 @@ public:
 template <typename T>
 my_list<T>::~my_list()
 {
-	Node * p;
+	Node<T> * p;
 	while (head) {
 		p = head;
 		head = head->next;
@@ -89,7 +43,7 @@ my_list<T>::~my_list()
 template <typename T>
 void my_list<T>::push_front(const T & val)
 {
-	Node * p = new Node(val, head);
+	Node<T> * p = new Node<T>(val, head);
 	head = p;
 	size++;
 }
@@ -97,12 +51,12 @@ void my_list<T>::push_front(const T & val)
 template <typename T>
 void my_list<T>::push_back(const T & val)
 {
-	Node * p = new Node(val);
+	Node<T> * p = new Node<T>(val);
 	if (head == NULL) {
 		head = p;
 	}
 	else {
-		Node * temp = head;
+		Node<T> * temp = head;
 		while (temp->next != NULL) {
 			temp = temp->next;
 		}
@@ -112,3 +66,51 @@ void my_list<T>::push_back(const T & val)
 }
 //-------------------------------------------------------------------------------------------------------------
 
+template <typename T>
+class Node
+{
+	T value;
+	Node<T> * next;
+	Node<T> * prev;
+
+	Node(const T & val, Node * next = 0, Node * prev = 0) : value(val), next(next), prev(prev)
+	{ }
+
+	friend class my_list<T>;
+	friend class Iterator<T>;
+};
+
+//-------------------------------------------------------------------------------------------------------------
+template <typename T>
+class Iterator
+{
+	Node<T> * p_current;
+
+	friend class my_list<T>;
+
+public:
+	typedef Iterator<T> iterator;
+
+	Iterator() : p_current(0)
+	{ }
+	Iterator(Node<T> * position) : p_current(position)
+	{ }
+
+
+	T & operator*() { return p_current->value; }
+	T * operator->() { return &(p_current->value); }
+
+	iterator & operator++() {
+		p_current = p_current->next;
+		return *this;
+	}
+
+	iterator operator++(int) {
+		Iterator temp = *this;
+		p_current = p_current->next;
+		return temp;
+	}
+
+	bool operator==(const Iterator rhs) { return p_current == rhs.p_current; }
+	bool operator!=(const Iterator rhs) { return p_current != rhs.p_current; }
+};
